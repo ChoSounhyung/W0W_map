@@ -1,0 +1,29 @@
+.wrap {
+  display: block;
+  text-align: center;
+  background: #fff;
+  margin-right: 35px;
+  padding: 15px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px #000000;
+}
+
+.info .titlename {
+  text-align: left;
+  padding-bottom: 10px;
+}
+
+.close {
+  width: 15px;
+  height: 15px;
+  border: 0;
+  padding: 0px;
+  background: url("exit.png") no-repeat;
+  float: right;
+}
+
+.close:hover {
+  cursor: pointer;
+}
