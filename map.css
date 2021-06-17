@@ -65,7 +65,11 @@ body {
 .places {
   display: flex;
   flex-direction: column;
+  height:40vh;
   padding-bottom: 3%;
+  overflow: scroll;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .place {

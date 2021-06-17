@@ -204,6 +204,7 @@ $(document).ready(function () {
 
       const init = () => {
         const placesDiv = document.querySelector(".places");
+        
         let places;
         places = fetch('./place.json')
             .then(res => res.json())
@@ -234,7 +235,6 @@ $(document).ready(function () {
           .then(res => res.json())
           .then(res => {
             places = res
-            console.log(places[index]);
       
             var moveLatLon = new kakao.maps.LatLng(places[index].lat, places[index].lng);
           
@@ -292,7 +292,6 @@ $(document).ready(function () {
             overlay.setContent(content);
             
             overlay.setMap(map);
-            console.log(overlay);
           })
       }
     
