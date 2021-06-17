@@ -34,17 +34,17 @@ const search_view = () =>{
             placesDiv.appendChild(div);
         })
 
-        var placeDiv = $('.places').children('.place');
-        placeDiv.map((index) => {
-         
-            placeDiv[index].addEventListener('click', () => {
+      const placeChild = $('.places').children('.place');
+        placeChild.map((index) => {
+            placeChild[index].addEventListener('click', () => {
                 getInfo(index);
             })
         })
 
-      .catch(e => alert(e))
+     
         
     })
+    .catch(e => console.log(e))
 
 
 }
