@@ -154,8 +154,6 @@ $(document).ready(function () {
       function closeOverlay() {
         overlay.setMap(null);
       }
-
-      return overlay;
     }
   });
 });
