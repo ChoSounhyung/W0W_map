@@ -1,3 +1,5 @@
+
+
 // 마커를 담을 배열입니다
 var markers = [];
 
@@ -155,3 +157,56 @@ $(document).ready(function () {
     }
   });
 });
+
+
+const init = () => {
+  const placesDiv = document.querySelector(".places");
+  let places;
+  places = fetch('./place.json')
+      .then(res => res.json())
+      .then(res => {
+        places = res
+
+        
+        places.map((place, index) => {
+            let div = document.createElement('div');
+            div.setAttribute("class", "place");
+            div.innerHTML = `<img src="./img_store.png" width=20 height=20><span style="color: #3273a8">${place.title}</span><br/><span>${place.info}</span><br/><a href="${place.site}"><span>${place.site}</span></a>`
+            placesDiv.appendChild(div);
+        })
+
+        var placeDiv = $('.places').children('.place');
+        placeDiv.map((index) => {
+         
+            placeDiv[index].addEventListener('click', () => {
+                getInfo(index);
+            })
+        })
+        
+    })
+}
+
+const getInfo = (index) => {
+    places = fetch('./place.json')
+    .then(res => res.json())
+    .then(res => {
+      places = res
+      console.log(places[index]);
+
+      var moveLatLon = new kakao.maps.LatLng(places[index].lat, places[index].lng);
+    
+      // 지도 중심을 부드럽게 이동시킵니다
+      // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+      map.panTo(moveLatLon);  
+
+      var customOverlay = new kakao.maps.CustomOverlay({
+        position: locPosition,
+        content: message,
+      });
+    
+      // 커스텀 오버레이를 지도에 표시합니다
+      customOverlay.setMap(map);
+    })
+}
+
+window.onload = () => init();
