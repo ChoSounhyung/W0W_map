@@ -29,10 +29,13 @@ body {
   background: #fff;
   margin-right: 35px;
   padding: 15px;
-font-size: 14px;
+  font-size: 14px;
   font-weight: bold;
   border-radius: 10px;
   box-shadow: 2px 2px 4px #000000;
+  position:relative;
+  top: 6vh;
+  margin-left: 1vw;
 }
 
 .info .titlename {
@@ -62,6 +65,7 @@ font-size: 14px;
 .places {
   display: flex;
   flex-direction: column;
+  padding-bottom: 3%;
 }
 
 .place {

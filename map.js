@@ -154,6 +154,8 @@ $(document).ready(function () {
       function closeOverlay() {
         overlay.setMap(null);
       }
+
+      return overlay;
     }
   });
 });
@@ -198,14 +200,6 @@ const getInfo = (index) => {
       // 지도 중심을 부드럽게 이동시킵니다
       // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
       map.panTo(moveLatLon);  
-
-      var customOverlay = new kakao.maps.CustomOverlay({
-        position: locPosition,
-        content: message,
-      });
-    
-      // 커스텀 오버레이를 지도에 표시합니다
-      customOverlay.setMap(map);
     })
 }
 
