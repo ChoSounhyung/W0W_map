@@ -10,13 +10,26 @@ body {
   margin: 0;
 }
 
+#mapwrap{
+  position:relative;
+  overflow:hidden;
+}
+.search {
+  position:absolute;
+  overflow:hidden;
+  top:10px;
+  left:10px;
+  width:150px;
+  height:50px;
+  z-index:10;
+ }
 .wrap {
   display: block;
   text-align: center;
   background: #fff;
   margin-right: 35px;
   padding: 15px;
-  font-size: 14px;
+font-size: 14px;
   font-weight: bold;
   border-radius: 10px;
   box-shadow: 2px 2px 4px #000000;
