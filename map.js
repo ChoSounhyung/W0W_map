@@ -201,54 +201,104 @@ $(document).ready(function () {
       function closeOverlay() {
         overlay.setMap(null);
       }
+
+      const init = () => {
+        const placesDiv = document.querySelector(".places");
+        let places;
+        places = fetch('./place.json')
+            .then(res => res.json())
+            .then(res => {
+              places = res
+      
+      
+              places.map((place, index) => {
+                  let div = document.createElement('div');
+                  div.setAttribute("class", "place");
+                  div.innerHTML = `<img src="./img_store.png" width=20 height=20><span style="color: #3273a8">${place.title}</span><br/><span>${place.info}</span><br/><a href="${place.site}"><span>${place.site}</span></a>`
+                  placesDiv.appendChild(div);
+              })
+      
+              var placeDiv = $('.places').children('.place');
+              placeDiv.map((index) => {
+               
+                  placeDiv[index].addEventListener('click', () => {
+                      getInfo(index, overlay);
+                  })
+              })
+              
+          })
+      }
+      
+      const getInfo = (index, overlay) => {
+          places = fetch('./place.json')
+          .then(res => res.json())
+          .then(res => {
+            places = res
+            console.log(places[index]);
+      
+            var moveLatLon = new kakao.maps.LatLng(places[index].lat, places[index].lng);
+          
+            // 지도 중심을 부드럽게 이동시킵니다
+            // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+            map.panTo(moveLatLon);  
+
+            var overlay = new kakao.maps.CustomOverlay({
+              yAnchor: 3,
+              position: moveLatLon
+            });
+      
+            var content = document.createElement("div");
+            content.className = "wrap";
+
+            var info = document.createElement("div");
+            info.className = "info";
+            content.appendChild(info);
+
+            var title = document.createElement("div");
+            title.className = "titlename";
+            title.innerHTML = places[index].title;
+            info.appendChild(title);
+
+            var closeBtn = document.createElement("button");
+            closeBtn.className = "close";
+            // closeBtn.innerHTML = "닫기";
+            // closeBtn.innerHTML = "<img src='./exit.png'/>";
+            closeBtn.onclick = function () {
+              overlay.setMap(null);
+            };
+            title.appendChild(closeBtn);
+
+            // var closeImg = document.createElement("img");
+            // closeImg.className = "closeimg";
+            // closeImg.onclick = function () {
+            //   overlay.setMap(null);
+            // };
+            // closeBtn.appendChild(closeImg).src = "exit_icon.png";
+
+            var body = document.createElement("div");
+            body.className = "body";
+            info.appendChild(body);
+
+            var desc = document.createElement("div");
+            desc.className = "desc";
+            body.appendChild(desc);
+
+            var address = document.createElement("div");
+            address.className = "address";
+            address.innerHTML = places[index].address;
+
+            desc.appendChild(address);
+
+            overlay.setContent(content);
+            
+            overlay.setMap(map);
+            console.log(overlay);
+          })
+      }
+    
+      window.onload = () => init();
     }
   });
 });
 
 
-const init = () => {
-  const placesDiv = document.querySelector(".places");
-  let places;
-  places = fetch('./place.json')
-      .then(res => res.json())
-      .then(res => {
-        places = res
-
-
-        places.map((place, index) => {
-            let div = document.createElement('div');
-            div.setAttribute("class", "place");
-            div.innerHTML = `<img src="./img_store.png" width=20 height=20><span style="color: #3273a8">${place.title}</span><br/><span>${place.info}</span><br/><a href="${place.site}"><span>${place.site}</span></a>`
-            placesDiv.appendChild(div);
-        })
-
-        var placeDiv = $('.places').children('.place');
-        placeDiv.map((index) => {
-         
-            placeDiv[index].addEventListener('click', () => {
-                getInfo(index);
-            })
-        })
-        
-    })
-}
-
-const getInfo = (index) => {
-    places = fetch('./place.json')
-    .then(res => res.json())
-    .then(res => {
-      places = res
-      console.log(places[index]);
-
-      var moveLatLon = new kakao.maps.LatLng(places[index].lat, places[index].lng);
-    
-      // 지도 중심을 부드럽게 이동시킵니다
-      // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
-      map.panTo(moveLatLon);  
-
-    })
-}
-
-
-
-window.onload = () => init();
