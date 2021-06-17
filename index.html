@@ -7,15 +7,21 @@
     <title>Document</title>
     <script type="text/javascript" src="./place.json"></script>
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-  </head>
-  <body>
-    <div id="map" style="width: 100vw; height: 100vh"></div>
-
     <script
       type="text/javascript"
       src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=a727a9ce6d84e20e9db8f890c59382d6"
     ></script>
-    <script src="./map.js"></script>
-    <link rel="stylesheet" href="map.css" />
+    
+    <script src="./store_list.js"></script>
+    <link rel="stylesheet" href="./map.css" />
+  </head>
+  <body>
+      <div id="map" style="width: 100vw; height: 50vh"></div>
+      <div class="container">
+          <span style="font-weight: bold; font-size: larger;">우리 동네 제로웨이스샵</span>
+          <div class="places"></div>
+      </div>
+    
+      <script src="./map.js"></script>
   </body>
 </html>
