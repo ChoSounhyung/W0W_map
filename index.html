@@ -19,7 +19,8 @@
     <div id="mapwarp">
       <div id="map" style="width: 100vw; height: 50vh"></div>
       <div class="search">
-        <input class="search_input" type="text" placeholder="Search">
+        <input id="search_input" type="text" placeholder="Search"  onkeyup="enterkey()">
+        <button id="search_button" onclick="search_view();" >검색</button>
       </div>
     </div>
 

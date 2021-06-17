@@ -3,6 +3,53 @@
 // 마커를 담을 배열입니다
 var markers = [];
 
+const search_input = document.getElementById("search_input");
+const search_button = document.getElementById("search_button");
+
+
+const enterkey =() => { 
+  if (window.event.keyCode == 13) { 
+    search_view()
+  } 
+}
+
+
+const search_view = () =>{
+  const text = search_input.value;
+  const placesDiv = document.querySelector(".places");
+  let places;
+  placesDiv.innerHTML= null;
+
+  
+  places = fetch('./place.json')
+      .then(res => res.json())
+      .then(res => {
+        places = res
+        const result = places.filter(place => place["address"].indexOf(text)!= -1 ||  place["title"].indexOf(text)!= -1);
+
+        result.map((place, index) => {
+            let div = document.createElement('div');
+            div.setAttribute("class", "place");
+            div.innerHTML = `<img src="./img_store.png" width=20 height=20><span style="color: #3273a8">${place.title}</span><br/><span>${place.info}</span><br/><a href="${place.site}"><span>${place.site}</span></a>`
+            placesDiv.appendChild(div);
+        })
+
+        var placeDiv = $('.places').children('.place');
+        placeDiv.map((index) => {
+         
+            placeDiv[index].addEventListener('click', () => {
+                getInfo(index);
+            })
+        })
+
+      .catch(e => alert(e))
+        
+    })
+
+
+}
+  
+
 var mapContainer = document.getElementById("map"), // 지도를 표시할 div
   mapOption = {
     center: new kakao.maps.LatLng(37.5642135, 127.0016985), // 지도의 중심좌표
@@ -166,7 +213,8 @@ const init = () => {
       .then(res => res.json())
       .then(res => {
         places = res
-        
+
+
         places.map((place, index) => {
             let div = document.createElement('div');
             div.setAttribute("class", "place");
@@ -200,5 +248,7 @@ const getInfo = (index) => {
 
     })
 }
+
+
 
 window.onload = () => init();
