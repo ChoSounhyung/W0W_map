@@ -207,7 +207,7 @@ $(document).ready(function () {
             places.map((place, index) => {
               let div = document.createElement("div");
               div.setAttribute("class", "place");
-              div.innerHTML = `<img src="./img_store.png" width="20" height="20"><span style="color: #35C9C9; margin-top: 2%">${place.title}</span><br/><span>${place.info}</span><br/><a href="${place.site}"><span>${place.site}</span></a>`;
+              div.innerHTML = `<div style="display=inline; vertical-align:middle;"><img src="./img_store.png" style="width: 11px; height: auto; vertical-align:middle; margin-right: 5px;"><span style="color: #35C9C9;">${place.title}</span></div><span>${place.info}</span><br/><a href="${place.site}"><span>${place.site}</span></a>`;
               placesDiv.appendChild(div);
             });
 
