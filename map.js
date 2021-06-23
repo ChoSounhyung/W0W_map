@@ -1,54 +1,47 @@
-
-
 // 마커를 담을 배열입니다
 var markers = [];
 
 const search_input = document.getElementById("search_input");
 const search_button = document.getElementById("search_button");
 
+const enterkey = () => {
+  if (window.event.keyCode == 13) {
+    search_view();
+  }
+};
 
-const enterkey =() => { 
-  if (window.event.keyCode == 13) { 
-    search_view()
-  } 
-}
-
-
-const search_view = () =>{
+const search_view = () => {
   const text = search_input.value;
   const placesDiv = document.querySelector(".places");
   let places;
-  placesDiv.innerHTML= null;
+  placesDiv.innerHTML = null;
 
-  
-  places = fetch('./place.json')
-      .then(res => res.json())
-      .then(res => {
-        places = res
-        const result = places.filter(place => place["address"].indexOf(text)!= -1 ||  place["title"].indexOf(text)!= -1);
+  places = fetch("./place.json")
+    .then((res) => res.json())
+    .then((res) => {
+      places = res;
+      const result = places.filter(
+        (place) =>
+          place["address"].indexOf(text) != -1 ||
+          place["title"].indexOf(text) != -1
+      );
 
-        result.map((place, index) => {
-            let div = document.createElement('div');
-            div.setAttribute("class", "place");
-            div.innerHTML = `<img src="./img_store.png" width=20 height=20><span style="color: #3273a8">${place.title}</span><br/><span>${place.info}</span><br/><a href="${place.site}"><span>${place.site}</span></a>`
-            placesDiv.appendChild(div);
-        })
+      result.map((place, index) => {
+        let div = document.createElement("div");
+        div.setAttribute("class", "place");
+        div.innerHTML = `<img class="store_img" src="./img_store.png" width=15 height=20><span style="color: #3273a8">${place.title}</span><br/><span>${place.info}</span><br/><a href="${place.site}"><span>${place.site}</span></a>`;
+        placesDiv.appendChild(div);
+      });
 
-      const placeChild = $('.places').children('.place');
-        placeChild.map((index) => {
-            placeChild[index].addEventListener('click', () => {
-                getInfo(index);
-            })
-        })
-
-     
-        
+      const placeChild = $(".places").children(".place");
+      placeChild.map((index) => {
+        placeChild[index].addEventListener("click", () => {
+          getInfo(index);
+        });
+      });
     })
-    .catch(e => console.log(e))
-
-
-}
-  
+    .catch((e) => console.log(e));
+};
 
 var mapContainer = document.getElementById("map"), // 지도를 표시할 div
   mapOption = {
@@ -204,51 +197,51 @@ $(document).ready(function () {
 
       const init = () => {
         const placesDiv = document.querySelector(".places");
-        
+
         let places;
-        places = fetch('./place.json')
-            .then(res => res.json())
-            .then(res => {
-              places = res
-      
-      
-              places.map((place, index) => {
-                  let div = document.createElement('div');
-                  div.setAttribute("class", "place");
-                  div.innerHTML = `<img src="./img_store.png" width=20 height=20><span style="color: #3273a8">${place.title}</span><br/><span>${place.info}</span><br/><a href="${place.site}"><span>${place.site}</span></a>`
-                  placesDiv.appendChild(div);
-              })
-      
-              var placeDiv = $('.places').children('.place');
-              placeDiv.map((index) => {
-               
-                  placeDiv[index].addEventListener('click', () => {
-                      getInfo(index, overlay);
-                  })
-              })
-              
-          })
-      }
-      
+        places = fetch("./place.json")
+          .then((res) => res.json())
+          .then((res) => {
+            places = res;
+
+            places.map((place, index) => {
+              let div = document.createElement("div");
+              div.setAttribute("class", "place");
+              div.innerHTML = `<img src="./img_store.png" width="20" height="20"><span style="color: #35C9C9; margin-top: 2%">${place.title}</span><br/><span>${place.info}</span><br/><a href="${place.site}"><span>${place.site}</span></a>`;
+              placesDiv.appendChild(div);
+            });
+
+            var placeDiv = $(".places").children(".place");
+            placeDiv.map((index) => {
+              placeDiv[index].addEventListener("click", () => {
+                getInfo(index, overlay);
+              });
+            });
+          });
+      };
+
       const getInfo = (index, overlay) => {
-          places = fetch('./place.json')
-          .then(res => res.json())
-          .then(res => {
-            places = res
-      
-            var moveLatLon = new kakao.maps.LatLng(places[index].lat, places[index].lng);
+        places = fetch("./place.json")
+          .then((res) => res.json())
+          .then((res) => {
+            places = res;
+
+            var moveLatLon = new kakao.maps.LatLng(
+              places[index].lat,
+              places[index].lng
+            );
 
             map.setCenter(moveLatLon);
-          
+
             // 지도 중심을 부드럽게 이동시킵니다
             // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
-            map.panTo(moveLatLon);  
+            map.panTo(moveLatLon);
 
             var overlay = new kakao.maps.CustomOverlay({
               yAnchor: 3,
-              position: moveLatLon
+              position: moveLatLon,
             });
-      
+
             var content = document.createElement("div");
             content.className = "wrap";
 
@@ -292,14 +285,12 @@ $(document).ready(function () {
             desc.appendChild(address);
 
             overlay.setContent(content);
-            
+
             overlay.setMap(map);
-          })
-      }
-    
+          });
+      };
+
       window.onload = () => init();
     }
   });
 });
-
-
